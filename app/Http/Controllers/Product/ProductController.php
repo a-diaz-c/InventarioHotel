@@ -58,18 +58,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $product = Product::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json(['data' => $product], 200);
     }
 
     /**

@@ -56,9 +56,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::findOrFail($id);
+        //$product = Product::findOrFail($id);
 
         return response()->json(['data' => $product], 200);
     }
@@ -70,9 +70,27 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $product->fill($request->only([
+            'name',
+            'foto',
+            'maximo',
+            'minimo',
+            'existencia',
+            'seguridad',
+            'id_measure',
+            'id_brand',
+            'id_warehouse',
+        ]));
+
+        if($product->isClean()){
+            return response()->json(['error' => 'Debe especificar al menos un valor diferente para actualizar', 'code' => 422], 422);
+        }
+
+        $product->save();
+
+        return response()->json(['data' => $product], 200);
     }
 
     /**
@@ -81,8 +99,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json(['data' => $product], 200);
     }
 }

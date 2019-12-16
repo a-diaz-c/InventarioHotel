@@ -83,7 +83,7 @@ class UserController extends ApiController
         }
 
         if(!$user->isDirty()){
-            return response()->json(['error' => 'Se debe especificar al menos in valor diferente para actulizar', 'code' => 422], 422);
+            return response()->json(['error' => 'Se debe especificar al menos un valor diferente para actulizar', 'code' => 422], 422);
         }
 
         $user->save();

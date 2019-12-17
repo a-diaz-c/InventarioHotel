@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Measure extends Model
 {
     protected $fillable = [
-        'id',
-        'descripcion',
+        'id_measures',
+        'descripcion_measures',
     ];
 }

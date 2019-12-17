@@ -29,7 +29,7 @@ class ProviderController extends Controller
     public function store(Request $request)
     {
         $reglas = [
-            'nombre' => 'required',
+            'nombre_providers' => 'required',
         ];
 
         $this->validate($request,$reglas);

@@ -14,12 +14,12 @@ class CreateSubWarehousesTable extends Migration
     public function up()
     {
         Schema::create('sub_warehouses', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->bigInteger('id_warehouse')->unsigned();
+            $table->bigIncrements('id_sub_warehouses');
+            $table->string('nombre_sub_warehouses');
+            $table->bigInteger('id_warehouses')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_warehouse')->references('id')->on('warehouses');
+            $table->foreign('id_warehouses')->references('id_warehouses')->on('warehouses');
         });
     }
 

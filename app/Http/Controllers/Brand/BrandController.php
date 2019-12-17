@@ -29,7 +29,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $reglas = [
-            'nombre' => 'required',
+            'nombre_brands' => 'required',
         ];
 
         $this->validate($request,$reglas);

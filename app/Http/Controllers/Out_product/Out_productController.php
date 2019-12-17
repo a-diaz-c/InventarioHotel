@@ -29,7 +29,7 @@ class Out_productController extends Controller
     public function store(Request $request)
     {
         $reglas = [
-            'nombre' => 'required',
+            'nombre_out_products' => 'required',
         ];
 
         $this->validate($request,$reglas);

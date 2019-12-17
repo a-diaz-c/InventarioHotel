@@ -29,8 +29,8 @@ class UserController extends ApiController
     public function store(Request $request)
     {
         $reglas = [
-            'name' => 'required|unique:users',
-            'password' => 'required|min:6:confirmed'
+            'name_user' => 'required|unique:users',
+            'password_user' => 'required|min:6:confirmed'
         ];
 
         $this->validate($request,$reglas);

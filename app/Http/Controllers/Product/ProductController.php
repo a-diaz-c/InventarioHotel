@@ -15,7 +15,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product  = Product::all();
+        $product  = Product::join('measures', 'products.id_measures', '=', 'measures.id_measures')
+                            ->join('brands','products.id_brands','=','brands.id_brands')
+                            ->join('warehouses', 'products.id_warehouses', '=', 'warehouses.id_warehouses')
+                            ->select('products.*','descripcion_measures','brands.nombre_brands','warehouses.nombre_warehouses')
+                            ->get();
 
         return response()->json(['data' => $product], 201);
     }
@@ -29,15 +33,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $reglas = [
-            'descripcion' => 'required',
-            'foto' => 'required',
-            'maximo' => 'required',
-            'minimo' => 'required',
-            'existencia' => 'required',
-            'seguridad' => 'required',
-            'id_measure' => 'required',
-            'id_brand' => 'required',
-            'id_warehouse' => 'required',
+            'descripcion_products' => 'required',
+            'foto_products' => 'required',
+            'maximo_products' => 'required',
+            'minimo_products' => 'required',
+            'existencia_products' => 'required',
+            'seguridad_products' => 'required',
+            'id_measures' => 'required',
+            'id_brands' => 'required',
+            'id_warehouses' => 'required',
         ];
 
         $this->validate($request,$reglas);
@@ -73,15 +77,15 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->fill($request->only([
-            'name',
-            'foto',
-            'maximo',
-            'minimo',
-            'existencia',
-            'seguridad',
-            'id_measure',
-            'id_brand',
-            'id_warehouse',
+            'name_products',
+            'foto_products',
+            'maximo_products',
+            'minimo_products',
+            'existencia_products',
+            'seguridad_products',
+            'id_measures',
+            'id_brands',
+            'id_warehouses',
         ]));
 
         if($product->isClean()){

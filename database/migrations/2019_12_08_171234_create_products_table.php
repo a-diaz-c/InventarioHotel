@@ -14,21 +14,21 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descripcion');
-            $table->string('foto');
-            $table->integer('maximo')->unsigned();
-            $table->integer('minimo')->unsigned();
-            $table->integer('existencia')->unsigned();
-            $table->integer('seguridad')->unsigned();
-            $table->bigInteger('id_measure')->unsigned();
-            $table->bigInteger('id_brand')->unsigned();
-            $table->bigInteger('id_warehouse')->unsigned();
+            $table->bigIncrements('id_products');
+            $table->string('descripcion_products');
+            $table->string('foto_products');
+            $table->integer('maximo_products')->unsigned();
+            $table->integer('minimo_products')->unsigned();
+            $table->integer('existencia_products')->unsigned();
+            $table->integer('seguridad_products')->unsigned();
+            $table->bigInteger('id_measures')->unsigned();
+            $table->bigInteger('id_brands')->unsigned();
+            $table->bigInteger('id_warehouses')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_warehouse')->references('id')->on('warehouses');
-            $table->foreign('id_measure')->references('id')->on('measures');
-            $table->foreign('id_brand')->references('id')->on('brands');            
+            $table->foreign('id_warehouses')->references('id_warehouses')->on('warehouses');
+            $table->foreign('id_measures')->references('id_measures')->on('measures');
+            $table->foreign('id_brands')->references('id_brands')->on('brands');            
         });
     }
 

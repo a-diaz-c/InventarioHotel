@@ -29,7 +29,7 @@ class MeasureController extends Controller
     public function store(Request $request)
     {
         $reglas = [
-            'descripcion' => 'required',
+            'descripcion_measures' => 'required',
         ];
 
         $this->validate($request,$reglas);

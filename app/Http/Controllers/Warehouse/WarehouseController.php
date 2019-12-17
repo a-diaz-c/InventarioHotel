@@ -29,7 +29,7 @@ class WarehouseController extends Controller
     public function store(Request $request)
     {
         $reglas = [
-            'nombre' => 'required',
+            'nombre_warehouses' => 'required',
         ];
 
         $this->validate($request,$reglas);
@@ -48,17 +48,6 @@ class WarehouseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

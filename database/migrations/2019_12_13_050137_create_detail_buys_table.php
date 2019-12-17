@@ -14,14 +14,14 @@ class CreateDetailBuysTable extends Migration
     public function up()
     {
         Schema::create('detail_buys', function (Blueprint $table) {
-            $table->bigInteger('id_buy')->unsigned();
-            $table->bigInteger('id_product')->unsigned();
+            $table->bigInteger('id_buys')->unsigned();
+            $table->bigInteger('id_products')->unsigned();
             $table->decimal('precio',10,2);
             $table->bigInteger('cantidad')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_buy')->references('id')->on('buys');
-            $table->foreign('id_product')->references('id')->on('products');
+            $table->foreign('id_buys')->references('id_buys')->on('buys');
+            $table->foreign('id_products')->references('id_products')->on('products');
         });
     }
 

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SubWarehouse extends Model
 {
     protected $fillable = [
-        'id',
-        'nombre',
-        'id_warehouse',
+        'id_sub_warehouses',
+        'nombre_sub_warehouses',
+        'id_warehouses',
     ];
 }

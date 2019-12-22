@@ -20,8 +20,8 @@ class CreateDetailBuysTable extends Migration
             $table->bigInteger('cantidad')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_buys')->references('id_buys')->on('buys');
-            $table->foreign('id_products')->references('id_products')->on('products');
+            $table->foreign('id_buys')->references('id')->on('buys');
+            $table->foreign('id_products')->references('id')->on('products');
         });
     }
 

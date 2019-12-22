@@ -8,7 +8,7 @@ class Buy extends Model
 {
     protected $fillable = [
         'id',
-        'descripcion',
-        'fecha',
+        'descripcion_buys',
+        'fecha_buys',
     ];    
 }

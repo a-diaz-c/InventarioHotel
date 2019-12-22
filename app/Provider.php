@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Provider extends Model
 {
     protected $fillable = [
-        'id_providers',
+        'id',
         'nombre_providers',
     ];
 }

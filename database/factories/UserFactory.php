@@ -62,7 +62,7 @@ $factory->define(SubWarehouse::class, function (Faker $faker) {
     $warehouse = Warehouse::all()->random();
     return [
         'nombre_sub_warehouses' => $faker->sentence(2),
-        'id_warehouses' => $warehouse->id_warehouses,
+        'id_warehouses' => $warehouse->id,
     ];
 });
 
@@ -90,9 +90,9 @@ $factory->define(Product::class, function (Faker $faker) {
         'minimo_products' => $faker->numberBetween(5,20),
         'seguridad_products' => $faker->numberBetween(10,20),
         'existencia_products' => $faker->numberBetween(1,50),
-        'id_measures' => $measure->id_measures,
-        'id_brands'=> $brand->id_brands,
-        'id_warehouses' => $warehouse->id_warehouses,
+        'id_measures' => $measure->id,
+        'id_brands'=> $brand->id,
+        'id_warehouses' => $warehouse->id,
     ];
 });
 
@@ -102,7 +102,7 @@ $factory->define(Out_product::class, function (Faker $faker) {
     return [
         'fecha_out_products' => $faker->date('Y-m-d','now'),
         'cantidad_out_products' =>  $faker->numberBetween(1,10),
-        'id_products'=> $product->id_products,
+        'id_products'=> $product->id,
     ];
 });
 
@@ -112,7 +112,7 @@ $factory->define(Buy::class, function (Faker $faker) {
     return [
         'fecha_buys' => $faker->date('Y-m-d','now'),
         'descripcion_buys' =>  $faker->word,
-        'id_providers'=> $provider->id_providers,
+        'id_providers'=> $provider->id,
     ];
 });
 
@@ -121,8 +121,8 @@ $factory->define(Detail_buy::class, function (Faker $faker) {
     $buy = Buy::all()->random();
     
     return [
-        'id_products'=> $product->id_products,
-        'id_buys' => $buy->id_buys,
+        'id_products'=> $product->id,
+        'id_buys' => $buy->id,
         'precio' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 10, $max = 200),
         'cantidad' => $faker->numberBetween(20,30),
     ];

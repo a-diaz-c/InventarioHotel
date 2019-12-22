@@ -16,8 +16,8 @@ class SubWarehouseController extends Controller
     public function index()
     {
         //$subWarehouse  = SubWarehouse::all();
-        $subWarehouse = SubWarehouse::join('warehouses', 'warehouses.id_warehouses', '=', 'sub_warehouses.id_warehouses')
-                        ->select('id_sub_warehouses','nombre_sub_warehouses','warehouses.id_warehouses', 'nombre_warehouses')
+        $subWarehouse = SubWarehouse::join('warehouses', 'warehouses.id', '=', 'sub_warehouses.id_warehouses')
+                        ->select('sub_warehouses.id','nombre_sub_warehouses','warehouses.id', 'nombre_warehouses')
                         ->get();
 
         return response()->json(['data' => $subWarehouse], 201);
@@ -33,7 +33,7 @@ class SubWarehouseController extends Controller
     {
         $reglas = [
             'nombre_sub_warehouses' => 'required',
-            'id_warehouse' => 'required',
+            'id_warehouses' => 'required',
         ];
 
         $this->validate($request,$reglas);

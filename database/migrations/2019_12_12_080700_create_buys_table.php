@@ -14,13 +14,13 @@ class CreateBuysTable extends Migration
     public function up()
     {
         Schema::create('buys', function (Blueprint $table) {
-            $table->bigIncrements('id_buys');
+            $table->bigIncrements('id');
             $table->string('descripcion_buys');
             $table->date('fecha_buys');
             $table->bigInteger('id_providers')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_providers')->references('id_providers')->on('providers');
+            $table->foreign('id_providers')->references('id')->on('providers');
         });
     }
 

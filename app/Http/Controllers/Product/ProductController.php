@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
+use App\CodeClass\Actions;
 use App\Product;
 
 class ProductController extends Controller
@@ -15,11 +18,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product  = Product::join('measures', 'products.id_measures', '=', 'measures.id_measures')
-                            ->join('brands','products.id_brands','=','brands.id_brands')
-                            ->join('warehouses', 'products.id_warehouses', '=', 'warehouses.id_warehouses')
+        $product  = Product::join('measures', 'products.id_measures', '=', 'measures.id')
+                            ->join('brands','products.id_brands','=','brands.id')
+                            ->join('warehouses', 'products.id_warehouses', '=', 'warehouses.id')
                             ->select('products.*','descripcion_measures','brands.nombre_brands','warehouses.nombre_warehouses')
                             ->get();
+        
+        $product = Actions::filterData($product);
+        $product = Actions::sortData($product);
+        $product = Actions::paginate($product);
+        //$product = Product::paginate(Actions::paginate());
 
         return response()->json(['data' => $product], 201);
     }
@@ -45,13 +53,15 @@ class ProductController extends Controller
         ];
 
         $this->validate($request,$reglas);
+        
 
         $campos = $request->all();
+
+        $campos['foto_products'] = $request->file('foto_products')->store('');
 
         $product = Product::create($campos);
 
         return response()->json(['data' => $product], 201);
-        return response()->json($request, 201);
     }
 
     /**
@@ -62,9 +72,14 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //$product = Product::findOrFail($id);
+        $product  = Product::join('measures', 'products.id_measures', '=', 'measures.id')
+                            ->join('brands','products.id_brands','=','brands.id')
+                            ->join('warehouses', 'products.id_warehouses', '=', 'warehouses.id')
+                            ->select('products.*','descripcion_measures','brands.nombre_brands','warehouses.nombre_warehouses')
+                            ->firstOrFail();
 
         return response()->json(['data' => $product], 200);
+        
     }
 
     /**
@@ -75,7 +90,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
-    {
+    {      
+        $imgDelete = $product->foto_products;
+
         $product->fill($request->only([
             'name_products',
             'foto_products',
@@ -87,6 +104,13 @@ class ProductController extends Controller
             'id_brands',
             'id_warehouses',
         ]));
+
+
+        if($request->hasFile('foto_products')){
+            Storage::delete($imgDelete);
+
+            $product->foto_products= $request->file('foto_products')->store('');
+        }
 
         if($product->isClean()){
             return response()->json(['error' => 'Debe especificar al menos un valor diferente para actualizar', 'code' => 422], 422);
@@ -105,8 +129,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Storage::delete($product->foto_products);
+        
         $product->delete();
 
         return response()->json(['data' => $product], 200);
     }
+
 }

@@ -14,13 +14,13 @@ class CreateOutProductsTable extends Migration
     public function up()
     {
         Schema::create('out_products', function (Blueprint $table) {
-            $table->bigIncrements('id_out_products');
+            $table->bigIncrements('id');
             $table->date('fecha_out_products');
             $table->integer('cantidad_out_products')->unsigned();
             $table->bigInteger('id_products')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_products')->references('id_products')->on('products');
+            $table->foreign('id_products')->references('id')->on('products');
 
         });
     }

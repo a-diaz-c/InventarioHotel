@@ -14,7 +14,7 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->bigIncrements('id_products');
+            $table->bigIncrements('id');
             $table->string('descripcion_products');
             $table->string('foto_products');
             $table->integer('maximo_products')->unsigned();
@@ -26,9 +26,9 @@ class CreateProductsTable extends Migration
             $table->bigInteger('id_warehouses')->unsigned();
             $table->timestamps();
 
-            $table->foreign('id_warehouses')->references('id_warehouses')->on('warehouses');
-            $table->foreign('id_measures')->references('id_measures')->on('measures');
-            $table->foreign('id_brands')->references('id_brands')->on('brands');            
+            $table->foreign('id_warehouses')->references('id')->on('warehouses');
+            $table->foreign('id_measures')->references('id')->on('measures');
+            $table->foreign('id_brands')->references('id')->on('brands');            
         });
     }
 
